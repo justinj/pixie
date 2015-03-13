@@ -17,7 +17,8 @@ data = {u"(1 2)": (1, 2,),
         u"(platform+ 1 2)": (symbol(u"platform+"), 1, 2),
         u"[42 43 44]": [42, 43, 44],
         u"(1 2 ; 7 8 9\n3)": (1, 2, 3,),
-        u"(1 2 ; 7 8 9\r\n3)": (1, 2, 3,)}
+        u"(1 2 ; 7 8 9\r\n3)": (1, 2, 3,),
+        u"(1 2 3 ; 4\n)": (1, 2, 3,)}
 
 class TestReader(unittest.TestCase):
     def _compare(self, frm, to):

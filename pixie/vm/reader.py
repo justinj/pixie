@@ -199,6 +199,10 @@ def eat_whitespace(rdr):
         ch = rdr.read()
         if is_whitespace(ch):
             continue
+        if ch == u";":
+            while ch != u"\n":
+                ch = rdr.read()
+            continue
         rdr.unread(ch)
         return
 
@@ -570,21 +574,6 @@ class DispatchReader(ReaderHandler):
             return throw_syntax_error_with_data(rdr, u"unknown dispatch #" + ch)
         return handler.invoke(rdr, ch)
 
-class LineCommentReader(ReaderHandler):
-    def invoke(self, rdr, ch):
-        self.skip_line(rdr)
-        return read(rdr, True)
-
-    def skip_line(self, rdr):
-        while True:
-            ch = rdr.read()
-            if ch == u"\n":
-                return
-            elif ch == u"\r":
-                ch2 = rdr.read()
-                if ch2 == u"\n":
-                    return
-
 handlers = {u"(": ListReader(),
             u")": UnmatchedListReader(),
             u"[": VectorReader(),
@@ -600,7 +589,6 @@ handlers = {u"(": ListReader(),
             u"~": UnquoteReader(),
             u"^": MetaReader(),
             u"#": DispatchReader(),
-            u";": LineCommentReader(),
             u"%": ArgReader()
 }
 
