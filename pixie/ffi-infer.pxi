@@ -23,7 +23,7 @@
 
 (defmethod emit-infer-code :const
   [{:keys [name]}]
-  (str "std::cout << \"{:value \" << " name " << \" :type \" "
+  (str "std::cout << \"{:value \" << (long)" name " << \" :type \" "
        ";\n PixieChecker::DumpValue(" name "); \n std::cout << \"}\" << std::endl;  "))
 
 (defmethod emit-infer-code :group
