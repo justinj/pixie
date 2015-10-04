@@ -43,6 +43,11 @@
         s (io/line-seq f)]
     (t/assert= (last s) "Second line.")))
 
+(t/deftest test-line-seq-non-buffered
+  (let [f (io/open-read "tests/pixie/tests/test-io.txt")
+        s (io/line-seq f)]
+    (t/assert= (last s) "Second line.")))
+
 (t/deftest test-seek
   (let [f (io/buffered-input-stream (io/open-read "tests/pixie/tests/test-io.txt"))]
     (io/read-line f)

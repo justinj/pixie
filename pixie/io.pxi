@@ -87,8 +87,11 @@
     (instance? BufferedInputStream input-stream)
     (-> input-stream ->LineReader)
 
+    (satisfies? IInputStream input-stream)
+    (-> input-stream buffered-input-stream ->LineReader)
+
     :else
-    (throw [::Exception "Expected a LineReader, UTF8InputStream, or BufferedInputStream"])))
+    (throw [::Exception "Expected a LineReader, UTF8InputStream, BufferedInputStream, or IInputStream"])))
 
 (defn read-line
   "Read one line from input-stream for each invocation.
